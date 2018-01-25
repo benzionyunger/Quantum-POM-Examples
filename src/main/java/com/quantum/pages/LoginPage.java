@@ -25,12 +25,12 @@ public class LoginPage extends AbstractBasePage{
         DeviceUtils.waitForPresentTextVisual("Real Estate", 10);
     }
 
-    public RealEstateHomePage login(String username, String password){
+    public HomePage login(String username, String password){
         logStepStart("User login: " + username);
         usernameField.sendKeys(username);
         passwordField.sendKeys(password);
         signInButton.click();
-        return new RealEstateHomePage();
+        return new HomePage();
     }
     @Override
     protected void openPage(PageLocator locator, Object... args) {
