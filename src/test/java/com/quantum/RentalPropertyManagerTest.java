@@ -1,6 +1,10 @@
 package com.quantum;
 
 import com.qmetry.qaf.automation.ui.WebDriverTestCase;
+import static com.quantum.pages.AbstractBasePage.Pages;
+import static com.quantum.pages.LoginPage.*;
+
+import com.quantum.pages.HomePage;
 import com.quantum.pages.LoginPage;
 import com.quantum.utils.DeviceUtils;
 import org.testng.annotations.BeforeTest;
@@ -8,6 +12,7 @@ import org.testng.annotations.Test;
 
 import static com.qmetry.qaf.automation.core.ConfigurationManager.getBundle;
 import static com.quantum.listerners.QuantumReportiumListener.logStepStart;
+import static com.quantum.pages.AbstractBasePage.menuDropBox;
 
 public class RentalPropertyManagerTest extends WebDriverTestCase {
 
@@ -16,11 +21,7 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
 
         logStepStart("Open browser");
 
-        DeviceUtils.switchToContext("WEBVIEW");
-
         getDriver().get(getBundle().getPropertyValue("env.baseurl"));
-
-//        getDriver().manage().deleteAllCookies();
 
     }
 
@@ -29,7 +30,10 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         logStepStart("Browse to Login Page");
         DeviceUtils.switchToContext("WEBVIEW");
         LoginPage loginPage = new LoginPage();
-        loginPage.login(getBundle().getPropertyValue("demoOwnerUsername"),getBundle().getPropertyValue("demoOwnerPassword"));
+        HomePage homePage = loginPage.login(getBundle().getPropertyValue("demoOwnerUsername"),getBundle().getPropertyValue("demoOwnerPassword"));
+        homePage.navapplicationsTenants();
+        menuDropBox(Pages.PROPERTIES);
+        logout();
 
     }
 }

@@ -15,6 +15,8 @@ public class LoginPage extends AbstractBasePage{
     private QAFWebElement passwordField;
     @FindBy(locator = "signIn.signIn.button")
     private QAFWebElement signInButton;
+    @FindBy(locator = "login.title")
+    private QAFWebElement title;
 
     public LoginPage(){
         super();
@@ -22,7 +24,7 @@ public class LoginPage extends AbstractBasePage{
     }
 
     private void validateLoginPage(){
-        DeviceUtils.waitForPresentTextVisual("Real Estate", 10);
+        title.waitForPresent(5000);
     }
 
     public HomePage login(String username, String password){

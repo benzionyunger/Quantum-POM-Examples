@@ -3,31 +3,33 @@ package com.quantum.pages;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
-import com.quantum.utils.DeviceUtils;
 
 public class HomePage extends AbstractBasePage {
 
     @FindBy(locator = "home.apps/leases.button")
-    QAFWebElement appLeaseBtn;
+    private QAFWebElement appLeaseBtn;
 
     @FindBy(locator = "home.apps/tenants.button")
-    QAFWebElement appTenantsBtn;
+    private QAFWebElement appTenantsBtn;
 
     @FindBy(locator = "home.properties.button")
-    QAFWebElement propertiesBtn;
+    private QAFWebElement propertiesBtn;
 
     @FindBy(locator = "home.units.button")
-    QAFWebElement unitsBtn;
+    private QAFWebElement unitsBtn;
 
     @FindBy(locator = "home.rentalOwners.button")
-    QAFWebElement rentalOwnersBtn;
+    private QAFWebElement rentalOwnersBtn;
+
+    @FindBy(locator = "home.title")
+    private QAFWebElement title;
 
     public HomePage(){
         super();
         validateHomePage();
     }
     private void validateHomePage(){
-        DeviceUtils.waitForPresentTextVisual("Applications", 10);
+        title.waitForPresent(5000);
     }
 
     @Override
@@ -48,7 +50,6 @@ public class HomePage extends AbstractBasePage {
     public void navUnits(){
         unitsBtn.click();
     }
-    public void navRentalOwners(){
-        rentalOwnersBtn.click();
-    }
+    public void navRentalOwners(){ rentalOwnersBtn.click(); }
+
 }
