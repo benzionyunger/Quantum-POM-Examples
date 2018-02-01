@@ -3,10 +3,8 @@ package com.quantum;
 import com.qmetry.qaf.automation.ui.WebDriverTestCase;
 import static com.quantum.pages.AbstractBasePage.Pages;
 import static com.quantum.pages.LoginPage.*;
-
 import com.quantum.pages.HomePage;
 import com.quantum.pages.LoginPage;
-import com.quantum.utils.DeviceUtils;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -28,7 +26,6 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
     @Test
     public void loginTest() {
         logStepStart("Browse to Login Page");
-        DeviceUtils.switchToContext("WEBVIEW");
         LoginPage loginPage = new LoginPage();
         HomePage homePage = loginPage.login(getBundle().getPropertyValue("demoOwnerUsername"),getBundle().getPropertyValue("demoOwnerPassword"));
         homePage.navapplicationsTenants();

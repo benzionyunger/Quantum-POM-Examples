@@ -13,9 +13,6 @@ import java.util.List;
 
 public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 
-    @FindBy(locator = "base.pageTitle")
-    private QAFWebElement title;
-
     @FindBy(locator = "base.menu.button")
     private static QAFWebElement menuBtn;
 
@@ -52,13 +49,11 @@ public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTe
     public AbstractBasePage(){
 
         super();
-        validateHomePage();
     }
 
-    private void validateHomePage(){
-        title.waitForPresent(5000);
-    }
-    public static void logout(){logoutBtn.click();}
+    public static void logout(){
+        menuBtn.click();
+        logoutBtn.click();}
     public static void menuDropBox(Pages pages){
         menuBtn.click();
         jumpToBtn.click();
