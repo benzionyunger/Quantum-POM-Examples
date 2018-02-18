@@ -5,6 +5,8 @@ import static com.quantum.pages.AbstractBasePage.Pages;
 import static com.quantum.pages.LoginPage.*;
 import com.quantum.pages.HomePage;
 import com.quantum.pages.LoginPage;
+import com.quantum.pages.RentalOwners;
+import com.quantum.pages.Units;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -31,6 +33,21 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         homePage.navapplicationsTenants();
         menuDropBox(Pages.PROPERTIES);
         logout();
+
+    }
+
+    @Test
+    public void unitTest(){
+        logStepStart("Browse to Login Page");
+        LoginPage loginPage = new LoginPage();
+        HomePage homePage = loginPage.login(getBundle().getPropertyValue("demoOwnerUsername"),getBundle().getPropertyValue("demoOwnerPassword"));
+        RentalOwners rentalOwners = homePage.navRentalOwners();
+        rentalOwners.clearOwner(getBundle().getPropertyValue("owner"));
+
+
+
+
+
 
     }
 }

@@ -47,9 +47,15 @@ public class HomePage extends AbstractBasePage {
     public void navProperties(){
         propertiesBtn.click();
     }
-    public void navUnits(){
+    public  Units navUnits(){
+
         unitsBtn.click();
+        return new Units();
     }
-    public void navRentalOwners(){ rentalOwnersBtn.click(); }
+    public RentalOwners navRentalOwners(){
+        rentalOwnersBtn.click();
+        return new RentalOwners();
+    }
+
 
 }
