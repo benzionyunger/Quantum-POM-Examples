@@ -13,7 +13,7 @@ public class RentalOwners extends AbstractBasePage {
     @FindBy(locator = "owners.title")
     private QAFWebElement title;
 
-    @FindBy(locator = "owners.delete.button")
+    @FindBy(locator = "base.delete.button")
     private QAFWebElement delete;
 
     @FindBy(locator = "base.addNew.Btn")
@@ -23,10 +23,10 @@ public class RentalOwners extends AbstractBasePage {
     private QAFWebElement save;
 
     @FindBy(locator = "owners.firstName.field")
-    QAFWebElement firstName;
+    private QAFWebElement firstName;
 
     @FindBy(locator = "owners.lastName.field")
-    QAFWebElement lastName;
+    private QAFWebElement lastName;
 
     public RentalOwners(){
         super();
@@ -37,7 +37,7 @@ public class RentalOwners extends AbstractBasePage {
     }
     public Boolean validateOwner(String owner){
         try {
-            driver.findElementByXPath("//*[text()="+owner+"\"]");
+            driver.findElementByXPath("//*[text()=\""+owner+"\"]");
         } catch (NoSuchElementException e) {
             System.out.println(owner+" owner was not found");
                     return false;

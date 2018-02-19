@@ -15,20 +15,21 @@ import static com.quantum.listerners.QuantumReportiumListener.logStepStart;
 import static com.quantum.pages.AbstractBasePage.menuDropBox;
 
 public class RentalPropertyManagerTest extends WebDriverTestCase {
+    private String username = getBundle().getPropertyValue("demoOwnerUsername");
+    private String password = getBundle().getPropertyValue("demoOwnerPassword");
+    private String owner = getBundle().getPropertyValue("owner");
+    private String unit = getBundle().getPropertyValue("unit");
 
     @BeforeTest
     public void beforeTest() {
 
         logStepStart("Open browser");
-
         getDriver().get(getBundle().getPropertyValue("env.baseurl"));
 
     }
 
     @Test
     public void loginTest() {
-        String username = getBundle().getPropertyValue("demoOwnerUsername");
-        String password = getBundle().getPropertyValue("demoOwnerPassword");
         logStepStart("Browse to Login Page");
         LoginPage loginPage = new LoginPage();
         HomePage homePage = loginPage.login(username,password);
@@ -39,9 +40,6 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
 
     @Test
     public void rentalOwnerTest(){
-        String owner = getBundle().getPropertyValue("owner");
-        String username = getBundle().getPropertyValue("demoOwnerUsername");
-        String password = getBundle().getPropertyValue("demoOwnerPassword");
         logStepStart("Browse to Login Page");
         LoginPage loginPage = new LoginPage();
         HomePage homePage = loginPage.login(username,password);
@@ -51,5 +49,20 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         if(rentalOwners.validateOwner(owner)){
             rentalOwners.clearOwner(owner);}
         logout();
+    }
+
+    @Test
+    public void unitTest(){
+        logStepStart("Browse to Login Page");
+        LoginPage loginPage = new LoginPage();
+        HomePage homePage = loginPage.login(username,password);
+        Units units = homePage.navUnits();
+        units.clearUnit(unit);
+        units.addNewUnit(unit);
+        if(units.validateUnit(unit)){
+            units.clearUnit(unit);
+        }
+        logout();
+
     }
 }

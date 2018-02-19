@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Quantum POM Demo Suite" verbose="0" parallel="false">
+<suite name="Quantum POM Demo Suite" verbose="0" parallel="none">
     <listeners>
         <listener class-name="com.quantum.listerners.QuantumReportiumListener" />
     </listeners>
@@ -12,8 +12,8 @@
     </test>
 
     <test name="Android Test" enabled="true">
-        <parameter name="driver.capabilities.deviceName" value="9889DB43574856364C"></parameter>
-        <parameter name="env.resources" value="src/main/resources/android"></parameter>
+        <parameter name="driver.capabilities.deviceName" value="C37BAE1934AE7DD0AE3355F77146C7A65579CAA3"></parameter>
+        <parameter name="env.resources" value="src/main/resources/ios"></parameter>
         <classes>
             <class name="com.quantum.RentalPropertyManagerTest" />
         </classes>
