@@ -27,27 +27,29 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
 
     @Test
     public void loginTest() {
+        String username = getBundle().getPropertyValue("demoOwnerUsername");
+        String password = getBundle().getPropertyValue("demoOwnerPassword");
         logStepStart("Browse to Login Page");
         LoginPage loginPage = new LoginPage();
-        HomePage homePage = loginPage.login(getBundle().getPropertyValue("demoOwnerUsername"),getBundle().getPropertyValue("demoOwnerPassword"));
+        HomePage homePage = loginPage.login(username,password);
         homePage.navapplicationsTenants();
         menuDropBox(Pages.PROPERTIES);
         logout();
-
     }
 
     @Test
-    public void unitTest(){
+    public void rentalOwnerTest(){
+        String owner = getBundle().getPropertyValue("owner");
+        String username = getBundle().getPropertyValue("demoOwnerUsername");
+        String password = getBundle().getPropertyValue("demoOwnerPassword");
         logStepStart("Browse to Login Page");
         LoginPage loginPage = new LoginPage();
-        HomePage homePage = loginPage.login(getBundle().getPropertyValue("demoOwnerUsername"),getBundle().getPropertyValue("demoOwnerPassword"));
+        HomePage homePage = loginPage.login(username,password);
         RentalOwners rentalOwners = homePage.navRentalOwners();
-        rentalOwners.clearOwner(getBundle().getPropertyValue("owner"));
-
-
-
-
-
-
+        rentalOwners.clearOwner(owner);
+        rentalOwners.addNewOwner(owner);
+        if(rentalOwners.validateOwner(owner)){
+            rentalOwners.clearOwner(owner);}
+        logout();
     }
 }

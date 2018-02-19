@@ -5,6 +5,7 @@ import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import org.openqa.selenium.NoSuchElementException;
+import org.testng.Assert;
 
 public class RentalOwners extends AbstractBasePage {
     private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
@@ -34,11 +35,12 @@ public class RentalOwners extends AbstractBasePage {
     private void validatePage(){
        title.click();
     }
-    private Boolean validateOwner(String owner){
+    public Boolean validateOwner(String owner){
         try {
             driver.findElementByXPath("//*[text()="+owner+"\"]");
         } catch (NoSuchElementException e) {
-            return false;
+            System.out.println(owner+" owner was not found");
+                    return false;
         }
         return true;
     }
