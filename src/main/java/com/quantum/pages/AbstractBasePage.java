@@ -14,13 +14,13 @@ import java.util.List;
 public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 
     @FindBy(locator = "base.menu.button")
-    private static QAFWebElement menuBtn;
+    static QAFWebElement menuBtn;
 
     @FindBy(locator = "base.jumpTo.button")
-    private static QAFWebElement jumpToBtn;
+    static QAFWebElement jumpToBtn;
 
     @FindBy(locator = "base.loginStatus.button")
-    private static QAFWebElement logoutBtn;
+    static QAFWebElement logoutBtn;
 
     @FindBy(locator = "base.pageOptions.apps/leases.button")
     static QAFWebElement appsLeasesBtn;
@@ -58,6 +58,5 @@ public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTe
         menuBtn.click();
         jumpToBtn.click();
         pages.PAGE.click();
-
     }
 }

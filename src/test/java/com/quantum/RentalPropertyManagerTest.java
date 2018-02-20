@@ -3,10 +3,8 @@ package com.quantum;
 import com.qmetry.qaf.automation.ui.WebDriverTestCase;
 import static com.quantum.pages.AbstractBasePage.Pages;
 import static com.quantum.pages.LoginPage.*;
-import com.quantum.pages.HomePage;
-import com.quantum.pages.LoginPage;
-import com.quantum.pages.RentalOwners;
-import com.quantum.pages.Units;
+
+import com.quantum.pages.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -22,15 +20,19 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
 
     @BeforeTest
     public void beforeTest() {
-
         logStepStart("Open browser");
         getDriver().get(getBundle().getPropertyValue("env.baseurl"));
+        new LoginPage();
+        try {
+            logout();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        }
 
-    }
-
-    @Test
+    @Test(enabled = false)
     public void loginTest() {
-        logStepStart("Browse to Login Page");
+        logStepStart("Browse to Login page");
         LoginPage loginPage = new LoginPage();
         HomePage homePage = loginPage.login(username,password);
         homePage.navapplicationsTenants();
@@ -38,30 +40,36 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         logout();
     }
 
-    @Test
+    @Test(enabled = true)
     public void rentalOwnerTest(){
-        logStepStart("Browse to Login Page");
+        logStepStart("Browse to Login page");
         LoginPage loginPage = new LoginPage();
         HomePage homePage = loginPage.login(username,password);
+        logStepStart("Navigate to Rental Owner page");
         RentalOwners rentalOwners = homePage.navRentalOwners();
+        logStepStart("Enter new owner details");
         rentalOwners.clearOwner(owner);
         rentalOwners.addNewOwner(owner);
         if(rentalOwners.validateOwner(owner)){
             rentalOwners.clearOwner(owner);}
+        logStepStart("Logout");
         logout();
     }
 
-    @Test
+    @Test(enabled = false)
     public void unitTest(){
-        logStepStart("Browse to Login Page");
+        logStepStart("Browse to Login page");
         LoginPage loginPage = new LoginPage();
         HomePage homePage = loginPage.login(username,password);
+        logStepStart("Navigate to Units page");
         Units units = homePage.navUnits();
+        logStepStart("Enter new owner details");
         units.clearUnit(unit);
         units.addNewUnit(unit);
         if(units.validateUnit(unit)){
             units.clearUnit(unit);
         }
+        logStepStart("Logout");
         logout();
 
     }

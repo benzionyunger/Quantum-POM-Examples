@@ -2,10 +2,15 @@ package com.quantum.pages;
 
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
+import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
+import com.quantum.utils.DeviceUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomePage extends AbstractBasePage {
-
+    private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
     @FindBy(locator = "home.apps/leases.button")
     private QAFWebElement appLeaseBtn;
 
@@ -53,6 +58,11 @@ public class HomePage extends AbstractBasePage {
         return new Units();
     }
     public RentalOwners navRentalOwners(){
+        Map<String, Object> params = new HashMap<>();
+        params.put("content", "Rental");
+        params.put("scrolling", "scroll");
+        params.put("next", "SWIPE_UP");
+        driver.executeScript("mobile:checkpoint:text", params);
         rentalOwnersBtn.click();
         return new RentalOwners();
     }

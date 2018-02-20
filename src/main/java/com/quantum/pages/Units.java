@@ -62,6 +62,7 @@ public class Units extends AbstractBasePage {
         arrowBtn.click();
         EBS.click();
         unitField.sendKeys(newUnit);
+        unlisted.click();
         save.click();
 
     }
