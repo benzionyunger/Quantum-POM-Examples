@@ -5,7 +5,6 @@ import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import org.openqa.selenium.NoSuchElementException;
-import org.testng.Assert;
 
 public class RentalOwners extends AbstractBasePage {
     private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
@@ -35,7 +34,7 @@ public class RentalOwners extends AbstractBasePage {
     private void validatePage(){
        title.click();
     }
-    public Boolean validateOwner(String owner){
+    public Boolean validateOwnerEntryExists(String owner){
         try {
             driver.findElementByXPath("//*[text()=\""+owner+"\"]");
         } catch (NoSuchElementException e) {
@@ -44,23 +43,19 @@ public class RentalOwners extends AbstractBasePage {
         }
         return true;
     }
-    public void clearOwner(String owner){
-        boolean exists;
-        if(validateOwner(owner)){
-            exists=true;
-            while(exists) {
+    public void clearOwnerEntry(String owner){
+            while(validateOwnerEntryExists(owner)) {
                 driver.findElementByXPath("//*[text()=" + owner + "\"]").click();
                 delete.waitForPresent(3000);
                 delete.click();
                 driver.switchTo().alert().accept();
-                exists = validateOwner(owner);
-            }
         }
     }
-    public void addNewOwner(String newOwner){
+    public void addNewOwnerEntry(String newOwnerFirstName, String newOwnerSecondName){
         addNew.click();
-        firstName.sendKeys("");
-        lastName.sendKeys("");
+        firstName.sendKeys(newOwnerFirstName);
+        lastName.sendKeys(newOwnerSecondName);
+
         save.click();
 
     }

@@ -2,10 +2,14 @@ package com.quantum.pages;
 
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
+import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.support.ui.Select;
 
 public class Units extends AbstractBasePage {
+    private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
+
     @FindBy(locator = "units.title")
     private QAFWebElement title;
 
@@ -26,6 +30,9 @@ public class Units extends AbstractBasePage {
 
     @FindBy(locator = "units.unit.field")
     private QAFWebElement unitField;
+
+    @FindBy(locator = "units.DOB.dropbox")
+    QAFWebElement DOBDropbox;
 
     @FindBy(locator = "units.properytDropbox.arrow.button")
     private QAFWebElement arrowBtn;
@@ -57,12 +64,14 @@ public class Units extends AbstractBasePage {
             }
         }
     }
-    public void addNewUnit(String newUnit){
+    public void addNewUnit(String newUnit, String month){
         addNew.click();
         arrowBtn.click();
         EBS.click();
         unitField.sendKeys(newUnit);
         unlisted.click();
+        Select select = new Select(driver.findElement(DOBDropbox.toString()));
+        select.selectByVisibleText(month);
         save.click();
 
     }

@@ -46,18 +46,15 @@ public class HomePage extends AbstractBasePage {
     public void navApplicationsLeases(){
         appLeaseBtn.click();
     }
-    public void navapplicationsTenants(){
-        appTenantsBtn.click();
-    }
+
     public void navProperties(){
         propertiesBtn.click();
     }
     public  Units navUnits(){
-
         unitsBtn.click();
         return new Units();
     }
-    public RentalOwners navRentalOwners(){
+    public RentalOwners navigateRentalOwnersPage(){
         Map<String, Object> params = new HashMap<>();
         params.put("content", "Rental");
         params.put("scrolling", "scroll");

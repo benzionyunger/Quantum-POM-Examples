@@ -1,26 +1,36 @@
 package com.quantum.pages;
 
+import com.qmetry.qaf.automation.step.CommonStep;
 import com.qmetry.qaf.automation.ui.WebDriverBaseTestPage;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.WebDriverTestPage;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElementListHandler;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
+import com.quantum.utils.DeviceUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.util.List;
 
 public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
+    private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
 
     @FindBy(locator = "base.menu.button")
-    static QAFWebElement menuBtn;
+    private QAFWebElement menuBtn;
 
     @FindBy(locator = "base.jumpTo.button")
-    static QAFWebElement jumpToBtn;
+    private QAFWebElement jumpToBtn;
 
     @FindBy(locator = "base.loginStatus.button")
-    static QAFWebElement logoutBtn;
+    private QAFWebElement logoutBtn;
+
+    private @FindBy(locator = "base.signedIn.button")
+    QAFWebElement signedInBtn;
+
+    @FindBy(locator = "base.signedIn.text")
+    QAFWebElement signedInUser;
 
     @FindBy(locator = "base.pageOptions.apps/leases.button")
     static QAFWebElement appsLeasesBtn;
@@ -47,14 +57,22 @@ public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTe
 
 
     public AbstractBasePage(){
-
         super();
     }
+    public void validateUserLoggedIn(String username){
 
-    public static void logout(){
+        Assert.assertEquals(username, signedInUser.getText());
+    }
+    public boolean isLoggedIn(){
+    return CommonStep.verifyPresent(signedInBtn.toString());
+    }
+
+    public void logout(){
         menuBtn.click();
-        logoutBtn.click();}
-    public static void menuDropBox(Pages pages){
+        logoutBtn.click();
+    }
+
+    public  void menuDropBox(Pages pages){
         menuBtn.click();
         jumpToBtn.click();
         pages.PAGE.click();

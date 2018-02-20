@@ -20,10 +20,10 @@ public class LoginPage extends AbstractBasePage{
 
     public LoginPage(){
         super();
-        validateLoginPage();
+
     }
 
-    private void validateLoginPage(){
+    public void validateLoginPage(){
         title.waitForPresent(5000);
     }
 
