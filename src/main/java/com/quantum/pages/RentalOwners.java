@@ -12,20 +12,11 @@ public class RentalOwners extends AbstractBasePage {
     @FindBy(locator = "owners.title")
     private QAFWebElement title;
 
-    @FindBy(locator = "base.delete.button")
-    private QAFWebElement delete;
-
     @FindBy(locator = "base.addNew.Btn")
     private QAFWebElement addNew;
 
-    @FindBy(locator = "base.save.btn")
-    private QAFWebElement save;
-
-    @FindBy(locator = "owners.firstName.field")
-    private QAFWebElement firstName;
-
-    @FindBy(locator = "owners.lastName.field")
-    private QAFWebElement lastName;
+    @FindBy(locator = "owners.header.text")
+    QAFWebElement header;
 
     public RentalOwners(){
         super();
@@ -34,31 +25,20 @@ public class RentalOwners extends AbstractBasePage {
     private void validatePage(){
        title.click();
     }
-    public Boolean validateOwnerEntryExists(String owner){
-        try {
-            driver.findElementByXPath("//*[text()=\""+owner+"\"]");
-        } catch (NoSuchElementException e) {
-            System.out.println(owner+" owner was not found");
-                    return false;
-        }
-        return true;
+    public void clearOwnerEntry(String ownerFirstName,String ownerLastName){
+        RentalOwnerDetails.TwoTypeReturn entry = new RentalOwnerDetails().validateOwnerEntryExists(ownerFirstName,ownerLastName);
+        if(entry.exists)
+            entry.correctEntry.click();
+        RentalOwnerDetails rentalOwnerDetails = new RentalOwnerDetails();
+        rentalOwnerDetails.delete.click();
+        driver.switchTo().alert().accept();
+
     }
-    public void clearOwnerEntry(String owner){
-            while(validateOwnerEntryExists(owner)) {
-                driver.findElementByXPath("//*[text()=" + owner + "\"]").click();
-                delete.waitForPresent(3000);
-                delete.click();
-                driver.switchTo().alert().accept();
-        }
-    }
-    public void addNewOwnerEntry(String newOwnerFirstName, String newOwnerSecondName){
+    public RentalOwnerDetails clickAddNew(){
         addNew.click();
-        firstName.sendKeys(newOwnerFirstName);
-        lastName.sendKeys(newOwnerSecondName);
-
-        save.click();
-
+        return new RentalOwnerDetails();
     }
+
     @Override
     protected void openPage(PageLocator pageLocator, Object... objects) {
 

@@ -15,7 +15,7 @@ import org.testng.Assert;
 import java.util.List;
 
 public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
-    private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
+//    private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
 
     @FindBy(locator = "base.menu.button")
     private QAFWebElement menuBtn;
@@ -30,7 +30,7 @@ public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTe
     QAFWebElement signedInBtn;
 
     @FindBy(locator = "base.signedIn.text")
-    QAFWebElement signedInUser;
+    private QAFWebElement signedInUser;
 
     @FindBy(locator = "base.pageOptions.apps/leases.button")
     static QAFWebElement appsLeasesBtn;
@@ -68,7 +68,7 @@ public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTe
     }
 
     public void logout(){
-        menuBtn.click();
+        signedInBtn.click();
         logoutBtn.click();
     }
 

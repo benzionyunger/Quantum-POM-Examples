@@ -31,11 +31,10 @@ public class Units extends AbstractBasePage {
     @FindBy(locator = "units.unit.field")
     private QAFWebElement unitField;
 
-    @FindBy(locator = "units.DOB.dropbox")
-    QAFWebElement DOBDropbox;
+
 
     @FindBy(locator = "units.properytDropbox.arrow.button")
-    private QAFWebElement arrowBtn;
+    private QAFWebElement propertArrowBtn;
 
     public Units(){
         super();
@@ -66,12 +65,12 @@ public class Units extends AbstractBasePage {
     }
     public void addNewUnit(String newUnit, String month){
         addNew.click();
-        arrowBtn.click();
+        propertArrowBtn.click();
         EBS.click();
         unitField.sendKeys(newUnit);
         unlisted.click();
-        Select select = new Select(driver.findElement(DOBDropbox.toString()));
-        select.selectByVisibleText(month);
+
+
         save.click();
 
     }

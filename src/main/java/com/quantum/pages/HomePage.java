@@ -9,6 +9,8 @@ import com.quantum.utils.DeviceUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.quantum.utils.DriverUtils.getDriver;
+
 public class HomePage extends AbstractBasePage {
     private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
     @FindBy(locator = "home.apps/leases.button")
@@ -59,7 +61,7 @@ public class HomePage extends AbstractBasePage {
         params.put("content", "Rental");
         params.put("scrolling", "scroll");
         params.put("next", "SWIPE_UP");
-        driver.executeScript("mobile:checkpoint:text", params);
+        getDriver().executeScript("mobile:checkpoint:text", params);
         rentalOwnersBtn.click();
         return new RentalOwners();
     }
