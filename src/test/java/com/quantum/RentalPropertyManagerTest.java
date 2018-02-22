@@ -58,13 +58,13 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         }
         HomePage homePage = loginPage.login(USERNAME, PASSWORD);
         logStepStart("Navigate to Rental Owner page");
-        RentalOwners rentalOwner = homePage.navigateRentalOwnersPage();
+        RentalOwnersPage rentalOwner = homePage.navigateRentalOwnersPage();
         logStepStart("Enter new owner details");
         rentalOwner.clearOwnerEntry(OWNER_FIRSTNAME,OWNER_LASTNAME);
-        RentalOwnerDetails rentalOwnerDetails = rentalOwner.clickAddNew();
-        rentalOwnerDetails.addNewOwnerEntry(OWNER_FIRSTNAME,OWNER_LASTNAME,YEAR,MONTH,DAY,EMAIL,PHONE_NUMBER,COUNTRY,STATE,CITY,STREET,ZIP);
+        RentalOwnerDetailsPage rentalOwnerDetailsPage = rentalOwner.clickAddNew();
+        rentalOwnerDetailsPage.addNewOwnerEntry(OWNER_FIRSTNAME,OWNER_LASTNAME,YEAR,MONTH,DAY,EMAIL,PHONE_NUMBER,COUNTRY,STATE,CITY,STREET,ZIP);
         logStepStart("Validate entry");
-        Assert.assertFalse(rentalOwnerDetails.getValidation(OWNER_FIRSTNAME,OWNER_LASTNAME));
+        Assert.assertFalse(rentalOwnerDetailsPage.getValidation(OWNER_FIRSTNAME,OWNER_LASTNAME));
     }
 
     @Test(enabled = false)

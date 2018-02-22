@@ -4,9 +4,8 @@ import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
-import org.openqa.selenium.NoSuchElementException;
 
-public class RentalOwners extends AbstractBasePage {
+public class RentalOwnersPage extends AbstractBasePage {
     private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
 
     @FindBy(locator = "owners.title")
@@ -18,7 +17,7 @@ public class RentalOwners extends AbstractBasePage {
     @FindBy(locator = "owners.header.text")
     QAFWebElement header;
 
-    public RentalOwners(){
+    public RentalOwnersPage(){
         super();
         validatePage();
     }
@@ -26,17 +25,17 @@ public class RentalOwners extends AbstractBasePage {
        title.click();
     }
     public void clearOwnerEntry(String ownerFirstName,String ownerLastName){
-        RentalOwnerDetails.TwoTypeReturn entry = new RentalOwnerDetails().validateOwnerEntryExists(ownerFirstName,ownerLastName);
-        if(entry.exists)
-            entry.correctEntry.click();
-        RentalOwnerDetails rentalOwnerDetails = new RentalOwnerDetails();
-        rentalOwnerDetails.delete.click();
+        QAFWebElement newEntry = new RentalOwnerDetailsPage().validateOwnerEntryExists(ownerFirstName,ownerLastName);
+        if(newEntry !=null)
+            newEntry.click();
+        RentalOwnerDetailsPage rentalOwnerDetailsPage = new RentalOwnerDetailsPage();
+        rentalOwnerDetailsPage.delete.click();
         driver.switchTo().alert().accept();
 
     }
-    public RentalOwnerDetails clickAddNew(){
+    public RentalOwnerDetailsPage clickAddNew(){
         addNew.click();
-        return new RentalOwnerDetails();
+        return new RentalOwnerDetailsPage();
     }
 
     @Override

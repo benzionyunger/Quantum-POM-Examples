@@ -4,7 +4,6 @@ import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
-import com.quantum.utils.DeviceUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,14 +55,14 @@ public class HomePage extends AbstractBasePage {
         unitsBtn.click();
         return new Units();
     }
-    public RentalOwners navigateRentalOwnersPage(){
+    public RentalOwnersPage navigateRentalOwnersPage(){
         Map<String, Object> params = new HashMap<>();
         params.put("content", "Rental");
         params.put("scrolling", "scroll");
         params.put("next", "SWIPE_UP");
         getDriver().executeScript("mobile:checkpoint:text", params);
         rentalOwnersBtn.click();
-        return new RentalOwners();
+        return new RentalOwnersPage();
     }
 
 

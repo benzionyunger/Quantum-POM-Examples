@@ -6,11 +6,11 @@ import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import org.openqa.selenium.NoSuchElementException;
 
-public class Applications extends AbstractBasePage {
+public class ApplicationsPage extends AbstractBasePage {
     @FindBy(locator = "applications.title")
     private QAFWebElement title;
 
-    public Applications(){
+    public ApplicationsPage(){
         super();
         validatePage();
     }

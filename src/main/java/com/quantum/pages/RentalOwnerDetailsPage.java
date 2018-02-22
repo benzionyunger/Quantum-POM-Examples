@@ -9,8 +9,10 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.Iterator;
 import java.util.List;
 
-public class RentalOwnerDetails extends AbstractBasePage {
+public class RentalOwnerDetailsPage extends AbstractBasePage {
     private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
+    private QAFWebElement firstNameElement = null;
+
 
     @FindBy(locator = "ownersDetails.header.text")
     private QAFWebElement header;
@@ -66,54 +68,38 @@ public class RentalOwnerDetails extends AbstractBasePage {
     @FindBy(locator = "owners.lastNameColumn.text")
     QAFWebElement lastNameColumn;
 
-     public class TwoTypeReturn {
-        boolean exists;
-        QAFWebElement correctEntry;
-        TwoTypeReturn(boolean exists, QAFWebElement correctEntry){
-            this.exists = exists;
-            this.correctEntry = correctEntry;
-        }
-//        public boolean getExists(){
-//            return exists;
-//        }
-//        public QAFWebElement entryElement(){
-//            return correctEntry;
-//        }
-    }
-    public RentalOwnerDetails(){
+
+    public RentalOwnerDetailsPage(){
         super();
         validateRentalOwnerDetailsPage();
     }
     public void validateRentalOwnerDetailsPage(){
         header.waitForPresent(5000);
     }
-    public TwoTypeReturn validateOwnerEntryExists(String ownerFirstName, String ownerLastName){
+    public QAFWebElement validateOwnerEntryExists(String ownerFirstName, String ownerLastName){
 
             header.click();
-
             List<QAFWebElement> firstNameElementsList = driver.findElements(firstNameColumn.toString());
             List<QAFWebElement> lastNameElementsList = driver.findElements(lastNameColumn.toString());
-
             Iterator<QAFWebElement> iterator1 = firstNameElementsList.iterator();
             Iterator<QAFWebElement> iterator2 = lastNameElementsList.iterator();
-            boolean exists = false;
-        QAFWebElement firstNameElement = null;
+            boolean exists;
+            QAFWebElement lastNameElement;
             while (iterator1.hasNext() && iterator2.hasNext()) {
                 firstNameElement = iterator1.next();
-                QAFWebElement lastNameElement = iterator2.next();
+                lastNameElement = iterator2.next();
                 exists = firstNameElement.getText().equalsIgnoreCase(ownerFirstName) && lastNameElement.getText().equalsIgnoreCase(ownerLastName);
                 if (exists) {
                     break;
+                }else {
+                    firstNameElement = null;
                 }
             }
-        return new TwoTypeReturn(exists, firstNameElement);
+            return firstNameElement;
     }
     public boolean getValidation(String ownerFirstName,String ownerLastName){
-        TwoTypeReturn entry = validateOwnerEntryExists(ownerFirstName,ownerLastName);
-        return entry.exists;
+        return (validateOwnerEntryExists(ownerFirstName,ownerLastName)!=null);
     }
-
-
 
     public void addNewOwnerEntry(String newOwnerFirstName, String newOwnerSecondName,String year, String month, String day, String email,String phone_Number, String country, String state, String city, String street, String zip){
 
