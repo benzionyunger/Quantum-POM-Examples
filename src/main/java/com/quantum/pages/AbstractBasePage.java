@@ -15,8 +15,9 @@ import org.testng.Assert;
 import java.util.List;
 
 public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
-//    private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
 
+    @FindBy(locator = "base.signIn.text")
+    private QAFWebElement signInText;
     @FindBy(locator = "base.menu.button")
     private QAFWebElement menuBtn;
 
@@ -64,11 +65,12 @@ public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTe
         Assert.assertEquals(username, signedInUser.getText());
     }
     public boolean isLoggedIn(){
-    return CommonStep.verifyPresent(signedInBtn.toString());
+        return signInText.isPresent();
+//    return CommonStep.verifyPresent(signInText.toString());
     }
 
     public void logout(){
-        signedInBtn.click();
+        menuBtn.click();
         logoutBtn.click();
     }
 

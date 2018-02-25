@@ -3,6 +3,7 @@ package com.quantum;
 import com.qmetry.qaf.automation.ui.WebDriverTestCase;
 
 import com.quantum.pages.*;
+import com.quantum.utils.DeviceUtils;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -36,6 +37,7 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
 
     @BeforeTest
     public void beforeTest() {
+//        DeviceUtils.switchToContext("WEBVIEW");
         logStepStart("Open browser");
         getDriver().get(getBundle().getPropertyValue("env.baseurl"));
 
@@ -53,7 +55,7 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
     public void addNewRentalOwnerTest(){
         logStepStart("Browse to Login page");
         LoginPage loginPage = new LoginPage();
-        if (loginPage.isLoggedIn()) {
+        if (!loginPage.isLoggedIn()) {
             loginPage.logout();
         }
         HomePage homePage = loginPage.login(USERNAME, PASSWORD);
@@ -64,7 +66,7 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         RentalOwnerDetailsPage rentalOwnerDetailsPage = rentalOwner.clickAddNew();
         rentalOwnerDetailsPage.addNewOwnerEntry(OWNER_FIRSTNAME,OWNER_LASTNAME,YEAR,MONTH,DAY,EMAIL,PHONE_NUMBER,COUNTRY,STATE,CITY,STREET,ZIP);
         logStepStart("Validate entry");
-        Assert.assertFalse(rentalOwnerDetailsPage.getValidation(OWNER_FIRSTNAME,OWNER_LASTNAME));
+        Assert.assertFalse(rentalOwner.getValidation(OWNER_FIRSTNAME,OWNER_LASTNAME));
     }
 
     @Test(enabled = false)
