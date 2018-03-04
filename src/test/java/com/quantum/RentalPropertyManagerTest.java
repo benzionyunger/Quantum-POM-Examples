@@ -65,6 +65,7 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         rentalOwner.clearOwnerEntry(OWNER_FIRSTNAME,OWNER_LASTNAME);
         RentalOwnerDetailsPage rentalOwnerDetailsPage = rentalOwner.clickAddNew();
         rentalOwnerDetailsPage.addNewOwnerEntry(OWNER_FIRSTNAME,OWNER_LASTNAME,YEAR,MONTH,DAY,EMAIL,PHONE_NUMBER,COUNTRY,STATE,CITY,STREET,ZIP);
+        DeviceUtils.waitForPresentTextVisual("the new record has been saved successfully",10);
         logStepStart("Validate entry");
         Assert.assertFalse(rentalOwner.getValidation(OWNER_FIRSTNAME,OWNER_LASTNAME));
     }

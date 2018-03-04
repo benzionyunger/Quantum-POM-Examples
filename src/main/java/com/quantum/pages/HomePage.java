@@ -11,7 +11,6 @@ import java.util.Map;
 import static com.quantum.utils.DriverUtils.getDriver;
 
 public class HomePage extends AbstractBasePage {
-    private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
     @FindBy(locator = "home.apps/leases.button")
     private QAFWebElement appLeaseBtn;
 

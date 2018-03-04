@@ -36,12 +36,12 @@ public class RentalOwnersPage extends AbstractBasePage {
     }
     public void clearOwnerEntry(String ownerFirstName,String ownerLastName){
         QAFWebElement newEntry = validateOwnerEntryExists(ownerFirstName,ownerLastName);
-        if(newEntry !=null)
+        if(newEntry !=null){
             newEntry.click();
         RentalOwnerDetailsPage rentalOwnerDetailsPage = new RentalOwnerDetailsPage();
         rentalOwnerDetailsPage.delete.click();
 
-        driver.switchTo().alert().accept();
+        driver.switchTo().alert().accept();}
 
     }
     public RentalOwnerDetailsPage clickAddNew(){

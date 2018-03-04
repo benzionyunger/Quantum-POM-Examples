@@ -3,6 +3,7 @@ package com.quantum.pages;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
+import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -65,7 +66,7 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
 
     public RentalOwnerDetailsPage(){
         super();
-        validateRentalOwnerDetailsPage();
+//        validateRentalOwnerDetailsPage();
     }
     public void validateRentalOwnerDetailsPage(){
         header.waitForPresent(5000);
@@ -76,16 +77,17 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
 
         firstName.sendKeys(newOwnerFirstName);
         lastName.sendKeys(newOwnerSecondName);
-        Select selectDay = new Select(driver.findElement(DOB_day.toString()));
+        Select selectDay = new Select((this.driver).findElement(DOB_day.toString()));
         selectDay.selectByVisibleText(day);
-        Select selectMonth = new Select(driver.findElement(DOB_month.toString()));
+        Select selectMonth = new Select((this.driver).findElement(DOB_month.toString()));
         selectMonth.selectByVisibleText(month);
-        Select selectYear = new Select(driver.findElement(DOB_year.toString()));
+        Select selectYear = new Select((this.driver).findElement(DOB_year.toString()));
         selectYear.selectByVisibleText(year);
         emailBtn.click();
         emailField.sendKeys(email);
         phoneNumber.sendKeys(phone_Number);
-        Select selectCountry = new Select(driver.findElement(Country.toString()));
+
+        Select selectCountry = new Select((this.driver).findElement(Country.toString()));
         selectCountry.selectByVisibleText(country);
         State.sendKeys(state);
         City.sendKeys(city);
