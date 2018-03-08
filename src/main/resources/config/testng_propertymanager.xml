@@ -11,8 +11,8 @@
         </classes>
     </test>
 
-    <test name="Android Test" enabled="true">
-        <parameter name="driver.capabilities.deviceName" value="1115FBD16FEF0303"></parameter>
+    <test name="POM Test" enabled="true">
+        <parameter name="driver.capabilities.deviceName" value="C37BAE1934AE7DD0AE3355F77146C7A65579CAA3"></parameter>
         <parameter name="env.resources" value="src/main/resources/android"></parameter>
         <classes>
             <class name="com.quantum.RentalPropertyManagerTest" />

@@ -5,6 +5,8 @@ import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
+import com.quantum.utils.DeviceUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.Iterator;
@@ -29,10 +31,10 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
     private QAFWebElement save;
 
     @FindBy(locator = "ownerDetails.DOB-month.dropbox")
-    QAFWebElement DOB_day;
+    QAFWebElement DOB_month;
 
     @FindBy(locator = "ownerDetails.DOB-day.dropbox")
-    QAFWebElement DOB_month;
+    QAFWebElement DOB_day;
 
     @FindBy(locator = "ownerDetails.DOB-year.dropbox")
     QAFWebElement DOB_year;
@@ -66,7 +68,6 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
 
     public RentalOwnerDetailsPage(){
         super();
-//        validateRentalOwnerDetailsPage();
     }
     public void validateRentalOwnerDetailsPage(){
         header.waitForPresent(5000);
@@ -77,18 +78,22 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
 
         firstName.sendKeys(newOwnerFirstName);
         lastName.sendKeys(newOwnerSecondName);
-        Select selectDay = new Select((this.driver).findElement(DOB_day.toString()));
-        selectDay.selectByVisibleText(day);
-        Select selectMonth = new Select((this.driver).findElement(DOB_month.toString()));
-        selectMonth.selectByVisibleText(month);
-        Select selectYear = new Select((this.driver).findElement(DOB_year.toString()));
-        selectYear.selectByVisibleText(year);
+        DeviceUtils.swipe("50%,85%", "50%,25%");
+
+        JavascriptExecutor js = (JavascriptExecutor)this.driver;
+        js.executeScript("arguments[0].click();", DOB_day);
+//        Select selectDay = new Select((this.driver).findElement(DOB_day.toString()));
+//        selectDay.selectByVisibleText(day);
+//        Select selectMonth = new Select((this.driver).findElement(DOB_month.toString()));
+//        selectMonth.selectByVisibleText(month);
+//        Select selectYear = new Select((this.driver).findElement(DOB_year.toString()));
+//        selectYear.selectByVisibleText(year);
         emailBtn.click();
         emailField.sendKeys(email);
         phoneNumber.sendKeys(phone_Number);
-
-        Select selectCountry = new Select((this.driver).findElement(Country.toString()));
-        selectCountry.selectByVisibleText(country);
+        DeviceUtils.swipe("50%,85%", "50%,25%");
+//        Select selectCountry = new Select((this.driver).findElement(Country.toString()));
+//        selectCountry.selectByVisibleText(country);
         State.sendKeys(state);
         City.sendKeys(city);
         Street.sendKeys(street);
