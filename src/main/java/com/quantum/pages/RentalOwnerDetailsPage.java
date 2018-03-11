@@ -2,21 +2,18 @@ package com.quantum.pages;
 
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
-import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
-import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElement;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.quantum.utils.DeviceUtils;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.Select;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class RentalOwnerDetailsPage extends AbstractBasePage {
 
 
     @FindBy(locator = "ownersDetails.header.text")
-    private QAFWebElement header;
+    private QAFWebElement formHeader;
+
+    @FindBy(locator = "ownersDetails.pageHeader.text")
+    private QAFWebElement pageHeader;
 
     @FindBy(locator = "base.delete.button")
     protected QAFWebElement delete;
@@ -70,18 +67,21 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
         super();
     }
     public void validateRentalOwnerDetailsPage(){
-        header.waitForPresent(5000);
+        formHeader.waitForPresent(5000);
     }
 
-
+    public RentalOwnersPage returnToRentalOwnersPage(){
+        pageHeader.click();
+        return new RentalOwnersPage();
+    }
     public void addNewOwnerEntry(String newOwnerFirstName, String newOwnerSecondName,String year, String month, String day, String email,String phone_Number, String country, String state, String city, String street, String zip){
 
         firstName.sendKeys(newOwnerFirstName);
         lastName.sendKeys(newOwnerSecondName);
         DeviceUtils.swipe("50%,85%", "50%,25%");
-
-        JavascriptExecutor js = (JavascriptExecutor)this.driver;
-        js.executeScript("arguments[0].click();", DOB_day);
+//
+//        JavascriptExecutor js = (JavascriptExecutor)this.driver;
+//        js.executeScript("arguments[0].click();", DOB_day);
 //        Select selectDay = new Select((this.driver).findElement(DOB_day.toString()));
 //        selectDay.selectByVisibleText(day);
 //        Select selectMonth = new Select((this.driver).findElement(DOB_month.toString()));
