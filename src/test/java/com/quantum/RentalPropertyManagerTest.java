@@ -70,7 +70,7 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         rentalOwnerDetailsPage.returnToRentalOwnersPage();
         logStepStart("Validate entry");
         DeviceUtils.swipe("50%,85%","50%,25%");
-        Assert.assertFalse(rentalOwner.getValidation(OWNER_FIRSTNAME));
+        Assert.assertTrue(rentalOwner.getValidation(OWNER_FIRSTNAME));
     }
 
     @Test(enabled = false)

@@ -67,7 +67,7 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
         super();
     }
     public void validateRentalOwnerDetailsPage(){
-        formHeader.waitForPresent(5000);
+        formHeader.waitForPresent(10000);
     }
 
     public RentalOwnersPage returnToRentalOwnersPage(){
