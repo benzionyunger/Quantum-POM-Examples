@@ -62,7 +62,7 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         logStepStart("Navigate to Rental Owner page");
         RentalOwnersPage rentalOwner = homePage.navigateRentalOwnersPage();
         logStepStart("Enter new owner details");
-        rentalOwner.clearOwnerEntry(OWNER_FIRSTNAME);
+        rentalOwner.clearOwnerEntry(OWNER_FIRSTNAME, OWNER_LASTNAME);
         RentalOwnerDetailsPage rentalOwnerDetailsPage = rentalOwner.clickAddNew();
         rentalOwnerDetailsPage.validateRentalOwnerDetailsPage();
         rentalOwnerDetailsPage.addNewOwnerEntry(OWNER_FIRSTNAME,OWNER_LASTNAME,YEAR,MONTH,DAY,EMAIL,PHONE_NUMBER,COUNTRY,STATE,CITY,STREET,ZIP);
@@ -70,7 +70,7 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         rentalOwnerDetailsPage.returnToRentalOwnersPage();
         logStepStart("Validate entry");
         DeviceUtils.swipe("50%,85%","50%,25%");
-        Assert.assertTrue(rentalOwner.getValidation(OWNER_FIRSTNAME));
+        Assert.assertTrue(rentalOwner.getValidation(OWNER_FIRSTNAME, OWNER_LASTNAME));
     }
 
     @Test(enabled = false)

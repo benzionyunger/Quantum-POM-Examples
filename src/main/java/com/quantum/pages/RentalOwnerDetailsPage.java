@@ -46,9 +46,6 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
     @FindBy(locator = "ownerDetails.phone.field")
     QAFWebElement phoneNumber;
 
-    @FindBy(locator = "ownerDetails.country.dropbox")
-    QAFWebElement Country;
-
     @FindBy(locator = "ownerDetails.street.field")
     QAFWebElement Street;
 

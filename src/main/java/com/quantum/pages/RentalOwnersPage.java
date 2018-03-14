@@ -4,6 +4,8 @@ import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.quantum.utils.DeviceUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -39,10 +41,10 @@ public class RentalOwnersPage extends AbstractBasePage {
     private void validatePage(){
        title.waitForPresent(5000);
     }
-    public void clearOwnerEntry(String ownerFirstName){
+    public void clearOwnerEntry(String ownerFirstName, String ownerLastName){
         DeviceUtils.swipe("50%,85%", "50%,25%");
 
-        QAFWebElement newEntry = validateOwnerEntryExists(ownerFirstName);
+        QAFWebElement newEntry = validateOwnerEntryExists(ownerFirstName, ownerLastName);
         if(newEntry !=null){
             newEntry.click();
         RentalOwnerDetailsPage rentalOwnerDetailsPage = new RentalOwnerDetailsPage();
@@ -66,38 +68,27 @@ public class RentalOwnersPage extends AbstractBasePage {
         addNew.click();
         return new RentalOwnerDetailsPage();
     }
-    public boolean getValidation(String ownerFirstName){
-        return (validateOwnerEntryExists(ownerFirstName)!=null);
+    public boolean getValidation(String ownerFirstName, String ownerLastName){
+        return (validateOwnerEntryExists(ownerFirstName, ownerLastName)!=null);
     }
 
 
-    public QAFWebElement validateOwnerEntryExists(String ownerFirstName){
+    public QAFWebElement validateOwnerEntryExists(String ownerFirstName, String ownerLastName){
 
-//        List<QAFWebElement> firstNameElementsList = (this.driver).findElements(firstNameColumn.toString());
-//        List<QAFWebElement> lastNameElementsList = (this.driver).findElements(lastNameColumn.toString());
-//
-//        Iterator<QAFWebElement> iterator1 = firstNameElementsList.iterator();
-//        Iterator<QAFWebElement> iterator2 = lastNameElementsList.iterator();
-//        boolean exists = Boolean.parseBoolean(null);
-//        QAFWebElement lastNameElement;
-//        while (iterator1.hasNext() && iterator2.hasNext()) {
-//            firstNameElement = iterator1.next();
-//
-//            lastNameElement = iterator2.next();
-//            exists = firstNameElement.getText().equalsIgnoreCase(ownerFirstName) && lastNameElement.getText().equalsIgnoreCase(ownerLastName);
-//            if (exists) {
-//                break;
-//            }else {
-//                firstNameElement = null;
-//            }
-//        }
-//        System.out.println("Both elements exist:" + String.valueOf(exists));
         try {
-            firstNameElement = this.driver.findElementByLinkText(ownerFirstName);
-        } catch (Exception e) {
-            System.out.println(ownerFirstName + " was not found in the owner's list");
-        }
-        return firstNameElement;
+            Boolean exists = Boolean.parseBoolean(null);
+            List<WebElement> rowList = this.driver.findElementsByTagName("tr");
+            for (int i = 1; i < rowList.size(); i++) {
+                List<WebElement> columnList = rowList.get(i).findElements(By.tagName("td"));
+                if (columnList.get(1).getText().equalsIgnoreCase(ownerFirstName) && columnList.get(2).getText().equalsIgnoreCase(ownerLastName)) {
+                    exists = true;
+                    System.out.println(ownerFirstName + " was found in the list");
+                    firstNameElement = (QAFWebElement) columnList.get(1);
+                    break;
+                }
+            }
+        }catch (Exception e){}
+            return firstNameElement;
     }
 
     @Override
