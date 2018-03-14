@@ -66,7 +66,6 @@ public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTe
     }
     public boolean isLoggedIn(){
         return signInText.isPresent();
-//    return CommonStep.verifyPresent(signInText.toString());
     }
 
     public void logout(){

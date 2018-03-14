@@ -62,7 +62,7 @@ public class RentalOwnersPage extends AbstractBasePage {
 
     }
     public RentalOwnerDetailsPage clickAddNew(){
-        addNew.waitForPresent(5000);
+        addNew.waitForPresent(10000);
         addNew.click();
         return new RentalOwnerDetailsPage();
     }
@@ -94,7 +94,6 @@ public class RentalOwnersPage extends AbstractBasePage {
 //        System.out.println("Both elements exist:" + String.valueOf(exists));
         try {
             firstNameElement = this.driver.findElementByLinkText(ownerFirstName);
-//            firstNameElement = (this.driver).findElement("//*[text()=\""+ownerFirstName+"\"]");
         } catch (Exception e) {
             System.out.println(ownerFirstName + " was not found in the owner's list");
         }

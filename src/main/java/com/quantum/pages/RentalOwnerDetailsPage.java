@@ -5,6 +5,7 @@ import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.quantum.utils.DeviceUtils;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.Select;
 
 public class RentalOwnerDetailsPage extends AbstractBasePage {
 
@@ -27,14 +28,14 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
     @FindBy(locator = "base.save.btn")
     private QAFWebElement save;
 
-    @FindBy(locator = "ownerDetails.DOB-month.dropbox")
-    QAFWebElement DOB_month;
+    @FindBy(locator = "ownerDetails.state.dropbox")
+    QAFWebElement stateArrowBtn;
 
-    @FindBy(locator = "ownerDetails.DOB-day.dropbox")
-    QAFWebElement DOB_day;
+    @FindBy(locator = "ownerDetails.state.searchbox.field")
+    QAFWebElement stateSearchBox;
 
-    @FindBy(locator = "ownerDetails.DOB-year.dropbox")
-    QAFWebElement DOB_year;
+    @FindBy(locator = "ownerDetails.stateMatch.text")
+    QAFWebElement stateMatch;
 
     @FindBy(locator = "ownerDetails.email.button")
     QAFWebElement emailBtn;
@@ -47,9 +48,6 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
 
     @FindBy(locator = "ownerDetails.country.dropbox")
     QAFWebElement Country;
-
-    @FindBy(locator = "ownerDetails.state.dropbox")
-    QAFWebElement State;
 
     @FindBy(locator = "ownerDetails.street.field")
     QAFWebElement Street;
@@ -67,7 +65,7 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
         super();
     }
     public void validateRentalOwnerDetailsPage(){
-        formHeader.waitForPresent(10000);
+        formHeader.waitForPresent(20000);
     }
 
     public RentalOwnersPage returnToRentalOwnersPage(){
@@ -79,25 +77,22 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
         firstName.sendKeys(newOwnerFirstName);
         lastName.sendKeys(newOwnerSecondName);
         DeviceUtils.swipe("50%,85%", "50%,25%");
-//
-//        JavascriptExecutor js = (JavascriptExecutor)this.driver;
-//        js.executeScript("arguments[0].click();", DOB_day);
-//        Select selectDay = new Select((this.driver).findElement(DOB_day.toString()));
-//        selectDay.selectByVisibleText(day);
-//        Select selectMonth = new Select((this.driver).findElement(DOB_month.toString()));
-//        selectMonth.selectByVisibleText(month);
-//        Select selectYear = new Select((this.driver).findElement(DOB_year.toString()));
-//        selectYear.selectByVisibleText(year);
+        this.driver.findElement("//*[text()=\""+month+"\"]").click();
+        this.driver.findElement("//*[text()=\""+year+"\"]").click();
+        this.driver.findElement("//*[text()=\""+day+"\"]").click();
         emailBtn.click();
         emailField.sendKeys(email);
         phoneNumber.sendKeys(phone_Number);
         DeviceUtils.swipe("50%,85%", "50%,25%");
-//        Select selectCountry = new Select((this.driver).findElement(Country.toString()));
-//        selectCountry.selectByVisibleText(country);
-        State.sendKeys(state);
+        this.driver.findElement("//*[text()=\""+country+"\"]").click();
+        stateArrowBtn.click();
+        stateSearchBox.sendKeys(state);
+        stateMatch.click();
         City.sendKeys(city);
         Street.sendKeys(street);
         Zip.sendKeys(zip);
+        DeviceUtils.swipe("50%,85%", "50%,25%");
+
         save.click();
     }
 
