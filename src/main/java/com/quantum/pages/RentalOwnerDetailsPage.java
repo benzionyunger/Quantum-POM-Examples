@@ -4,8 +4,6 @@ import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.quantum.utils.DeviceUtils;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.Select;
 
 public class RentalOwnerDetailsPage extends AbstractBasePage {
 
@@ -17,7 +15,7 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
     private QAFWebElement pageHeader;
 
     @FindBy(locator = "base.delete.button")
-    protected QAFWebElement delete;
+    QAFWebElement delete;
 
     @FindBy(locator = "ownerDetails.firstName.field")
     private QAFWebElement firstName;
@@ -25,35 +23,38 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
     @FindBy(locator = "ownerDetails.lastName.field")
     private QAFWebElement lastName;
 
+    @FindBy(locator = "ownerDetails.companyName.field")
+    private QAFWebElement companyName;
+
     @FindBy(locator = "base.save.btn")
     private QAFWebElement save;
 
     @FindBy(locator = "ownerDetails.state.dropbox")
-    QAFWebElement stateArrowBtn;
+    private QAFWebElement stateArrowBtn;
 
     @FindBy(locator = "ownerDetails.state.searchbox.field")
-    QAFWebElement stateSearchBox;
+    private QAFWebElement stateSearchBox;
 
     @FindBy(locator = "ownerDetails.stateMatch.text")
-    QAFWebElement stateMatch;
+    private QAFWebElement stateMatch;
 
     @FindBy(locator = "ownerDetails.email.button")
-    QAFWebElement emailBtn;
+    private QAFWebElement emailBtn;
 
     @FindBy(locator = "ownerDetails.email.field")
-    QAFWebElement emailField;
+    private QAFWebElement emailField;
 
     @FindBy(locator = "ownerDetails.phone.field")
-    QAFWebElement phoneNumber;
+    private QAFWebElement phoneNumber;
 
     @FindBy(locator = "ownerDetails.street.field")
-    QAFWebElement Street;
+    private QAFWebElement Street;
 
     @FindBy(locator = "ownerDetails.city.field")
-    QAFWebElement City;
+    private QAFWebElement City;
 
     @FindBy(locator = "ownerDetails.zip.field")
-    QAFWebElement Zip;
+    private QAFWebElement Zip;
 
 
 
@@ -61,35 +62,37 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
     public RentalOwnerDetailsPage(){
         super();
     }
+
     public void validateRentalOwnerDetailsPage(){
-        formHeader.waitForPresent(20000);
+        formHeader.waitForPresent(40000);
     }
 
     public RentalOwnersPage returnToRentalOwnersPage(){
         pageHeader.click();
         return new RentalOwnersPage();
     }
-    public void addNewOwnerEntry(String newOwnerFirstName, String newOwnerSecondName,String year, String month, String day, String email,String phone_Number, String country, String state, String city, String street, String zip){
+
+    public void addNewOwnerEntry(String newOwnerFirstName, String newOwnerSecondName, String company, String year, String month, String day, String email,String phone_Number, String country, String state, String city, String street, String zip){
 
         firstName.sendKeys(newOwnerFirstName);
         lastName.sendKeys(newOwnerSecondName);
+        companyName.sendKeys(company);
         DeviceUtils.swipe("50%,85%", "50%,25%");
-        this.driver.findElement("//*[text()=\""+month+"\"]").click();
-        this.driver.findElement("//*[text()=\""+year+"\"]").click();
-        this.driver.findElement("//*[text()=\""+day+"\"]").click();
+        this.driver.findElement("//*[text()=\"" + month + "\"]").click();
+        this.driver.findElement("//*[text()=\"" + day + "\"]").click();
+        this.driver.findElement("//*[text()=\"" + year + "\"]").click();
         emailBtn.click();
         emailField.sendKeys(email);
         phoneNumber.sendKeys(phone_Number);
         DeviceUtils.swipe("50%,85%", "50%,25%");
         this.driver.findElement("//*[text()=\""+country+"\"]").click();
+        Street.sendKeys(street);
+        City.sendKeys(city);
         stateArrowBtn.click();
         stateSearchBox.sendKeys(state);
         stateMatch.click();
-        City.sendKeys(city);
-        Street.sendKeys(street);
         Zip.sendKeys(zip);
         DeviceUtils.swipe("50%,85%", "50%,25%");
-
         save.click();
     }
 

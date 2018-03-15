@@ -14,10 +14,11 @@ import static com.quantum.listerners.QuantumReportiumListener.logStepStart;
 public class RentalPropertyManagerTest extends WebDriverTestCase {
     private final String USERNAME = getBundle().getPropertyValue("username");
     private final String PASSWORD = getBundle().getPropertyValue("password");
+    private final String UNIT = getBundle().getPropertyValue("unit");
     private final String OWNER_FIRSTNAME = getBundle().getPropertyValue("ownerFirstName");
     private final String OWNER_LASTNAME = getBundle().getPropertyValue("ownerLastName");
+    private final String COMPANY = getBundle().getPropertyValue("company");
     private final String MONTH = getBundle().getPropertyValue("month");
-    private final String UNIT = getBundle().getPropertyValue("unit");
     private final String DAY = getBundle().getPropertyValue("day");
     private final String YEAR = getBundle().getPropertyValue("year");
     private final String EMAIL = getBundle().getPropertyValue("email");
@@ -28,8 +29,6 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
     private final String ZIP = getBundle().getPropertyValue("zip");
     private final String PHONE_NUMBER = getBundle().getPropertyValue("phoneNumber");
 
-
-
     @Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
@@ -37,7 +36,6 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
 
     @BeforeTest
     public void beforeTest() {
-//        DeviceUtils.switchToContext("WEBVIEW");
         logStepStart("Open browser");
         getDriver().get(getBundle().getPropertyValue("env.baseurl"));
 
@@ -65,7 +63,7 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         rentalOwner.clearOwnerEntry(OWNER_FIRSTNAME, OWNER_LASTNAME);
         RentalOwnerDetailsPage rentalOwnerDetailsPage = rentalOwner.clickAddNew();
         rentalOwnerDetailsPage.validateRentalOwnerDetailsPage();
-        rentalOwnerDetailsPage.addNewOwnerEntry(OWNER_FIRSTNAME,OWNER_LASTNAME,YEAR,MONTH,DAY,EMAIL,PHONE_NUMBER,COUNTRY,STATE,CITY,STREET,ZIP);
+        rentalOwnerDetailsPage.addNewOwnerEntry(OWNER_FIRSTNAME, OWNER_LASTNAME, COMPANY, YEAR, MONTH, DAY, EMAIL, PHONE_NUMBER, COUNTRY, STATE, CITY, STREET, ZIP);
         DeviceUtils.waitForPresentTextVisual("the new record has been saved successfully",10);
         rentalOwnerDetailsPage.returnToRentalOwnersPage();
         logStepStart("Validate entry");

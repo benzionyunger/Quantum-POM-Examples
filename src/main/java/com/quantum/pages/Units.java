@@ -5,7 +5,6 @@ import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.support.ui.Select;
 
 public class Units extends AbstractBasePage {
     private QAFExtendedWebDriver driver = new QAFExtendedWebDriver();
@@ -34,7 +33,7 @@ public class Units extends AbstractBasePage {
 
 
     @FindBy(locator = "units.properytDropbox.arrow.button")
-    private QAFWebElement propertArrowBtn;
+    private QAFWebElement propertyArrowBtn;
 
     public Units(){
         super();
@@ -65,14 +64,11 @@ public class Units extends AbstractBasePage {
     }
     public void addNewUnit(String newUnit, String month){
         addNew.click();
-        propertArrowBtn.click();
+        propertyArrowBtn.click();
         EBS.click();
         unitField.sendKeys(newUnit);
         unlisted.click();
-
-
         save.click();
-
     }
     private void validateUnitsPage(){title.click();}
 
