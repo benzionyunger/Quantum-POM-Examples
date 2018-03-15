@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +58,6 @@ public class RentalOwnersPage extends AbstractBasePage {
             Map<String, Object> params2 = new HashMap<>();
             params2.put("label", "OK");
             this.driver.executeScript("mobile:button-text:click", params2);
-
         }
 
     }
@@ -76,18 +74,18 @@ public class RentalOwnersPage extends AbstractBasePage {
     public QAFWebElement validateOwnerEntryExists(String ownerFirstName, String ownerLastName){
 
         try {
-            Boolean exists = Boolean.parseBoolean(null);
             List<WebElement> rowList = this.driver.findElementsByTagName("tr");
             for (int i = 1; i < rowList.size(); i++) {
                 List<WebElement> columnList = rowList.get(i).findElements(By.tagName("td"));
                 if (columnList.get(1).getText().equalsIgnoreCase(ownerFirstName) && columnList.get(2).getText().equalsIgnoreCase(ownerLastName)) {
-                    exists = true;
-                    System.out.println(ownerFirstName + " was found in the list");
-                    firstNameElement = (QAFWebElement) columnList.get(1);
+                    System.out.println(ownerFirstName + " " + ownerLastName + " was found in the list");
+                    WebElement e = columnList.get(1).findElement(By.tagName("a"));
+                    firstNameElement = (QAFWebElement) e;
                     break;
                 }
             }
-        }catch (Exception e){}
+        }catch (Exception e){
+        }
             return firstNameElement;
     }
 
