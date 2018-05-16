@@ -40,16 +40,20 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         getDriver().get(getBundle().getPropertyValue("env.baseurl"));
 
     }
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void loginTest() {
         logStepStart("Browse to Login page");
         LoginPage loginPage = new LoginPage();
         loginPage.validateLoginPage();
+        if (!loginPage.isLoggedIn()) {
+            loginPage.logout();
+        }
         HomePage homePage = loginPage.login(USERNAME, PASSWORD);
+        logStepStart("Validate successful login");
         homePage.validateUserLoggedIn(USERNAME);
     }
 
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void addNewRentalOwnerTest(){
         logStepStart("Browse to Login page");
         LoginPage loginPage = new LoginPage();
@@ -63,7 +67,21 @@ public class RentalPropertyManagerTest extends WebDriverTestCase {
         rentalOwner.clearOwnerEntry(OWNER_FIRSTNAME, OWNER_LASTNAME);
         RentalOwnerDetailsPage rentalOwnerDetailsPage = rentalOwner.clickAddNew();
         rentalOwnerDetailsPage.validateRentalOwnerDetailsPage();
-        rentalOwnerDetailsPage.addNewOwnerEntry(OWNER_FIRSTNAME, OWNER_LASTNAME, COMPANY, YEAR, MONTH, DAY, EMAIL, PHONE_NUMBER, COUNTRY, STATE, CITY, STREET, ZIP);
+        rentalOwnerDetailsPage.addNewOwnerEntry(
+                OWNER_FIRSTNAME,
+                OWNER_LASTNAME,
+                COMPANY,
+                YEAR,
+                MONTH,
+                DAY,
+                EMAIL,
+                PHONE_NUMBER,
+                COUNTRY,
+                STATE,
+                CITY,
+                STREET,
+                ZIP
+        );
         DeviceUtils.waitForPresentTextVisual("the new record has been saved successfully",10);
         rentalOwnerDetailsPage.returnToRentalOwnersPage();
         logStepStart("Validate entry");

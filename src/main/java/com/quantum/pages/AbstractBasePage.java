@@ -61,7 +61,9 @@ public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTe
         super();
     }
     public void validateUserLoggedIn(String username){
-
+        username = username.toLowerCase();
+        menuBtn.waitForEnabled(5000);
+        menuBtn.click();
         Assert.assertEquals(username, signedInUser.getText());
     }
     public boolean isLoggedIn(){

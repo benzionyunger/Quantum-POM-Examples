@@ -51,7 +51,7 @@ public class RentalOwnersPage extends AbstractBasePage {
     }
 
     public RentalOwnerDetailsPage clickAddNew(){
-        this.driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        addNew.waitForEnabled(5000);
         addNew.click();
         return new RentalOwnerDetailsPage();
     }
