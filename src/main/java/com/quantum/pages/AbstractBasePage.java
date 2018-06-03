@@ -1,23 +1,16 @@
 package com.quantum.pages;
 
-import com.qmetry.qaf.automation.step.CommonStep;
 import com.qmetry.qaf.automation.ui.WebDriverBaseTestPage;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.WebDriverTestPage;
-import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
-import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebElementListHandler;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
-import com.quantum.utils.DeviceUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-
-import java.util.List;
 
 public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTestPage> {
 
     @FindBy(locator = "base.signIn.text")
     private QAFWebElement signInText;
+
     @FindBy(locator = "base.menu.button")
     private QAFWebElement menuBtn;
 
@@ -48,36 +41,45 @@ public abstract class AbstractBasePage extends WebDriverBaseTestPage<WebDriverTe
     @FindBy(locator = "base.pageOptions.units.button")
     static QAFWebElement unitsBtn;
 
-    public enum Pages{
-        APPLICATIONS(appsLeasesBtn),APPLICANTS(appsTenantsBtn),PROPERTIES(propertiesBtn),UNITS(unitsBtn),OWNERS(ownerBtn);
-        public final QAFWebElement PAGE;
-        Pages(QAFWebElement PAGE){
-            this.PAGE = PAGE;
-        }
-    }
-
-
-    public AbstractBasePage(){
-        super();
-    }
+    /**
+     * Inherits driver from WebDriverBaseTestPage.
+     */
     public void validateUserLoggedIn(String username){
         username = username.toLowerCase();
         menuBtn.waitForEnabled(5000);
         menuBtn.click();
         Assert.assertEquals(username, signedInUser.getText());
     }
+
+    /**
+     * Verifies if sign in page is displayed.
+     * @return Username text is present on the page.
+     */
     public boolean isLoggedIn(){
+
         return signInText.isPresent();
     }
 
+    /**
+     * Navigates to logout button and clicks.
+     */
     public void logout(){
-        menuBtn.click();
-        logoutBtn.click();
+        if (logoutBtn.isDisplayed()) {
+            logoutBtn.click();
+        } else {
+            menuBtn.click();
+            logoutBtn.click();
+        }
     }
 
-    public  void menuDropBox(Pages pages){
-        menuBtn.click();
-        jumpToBtn.click();
-        pages.PAGE.click();
+    /**
+     * Currently not in use in present tests, but useful to help navigate the page menu present on all pages.
+     */
+    public enum Pages{
+        APPLICATIONS(appsLeasesBtn),APPLICANTS(appsTenantsBtn),PROPERTIES(propertiesBtn),UNITS(unitsBtn),OWNERS(ownerBtn);
+        public final QAFWebElement PAGE;
+        Pages(QAFWebElement PAGE){
+            this.PAGE = PAGE;
+        }
     }
 }
