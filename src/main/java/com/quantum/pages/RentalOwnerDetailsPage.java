@@ -7,7 +7,6 @@ import com.quantum.utils.DeviceUtils;
 
 public class RentalOwnerDetailsPage extends AbstractBasePage {
 
-
     @FindBy(locator = "ownersDetails.header.text")
     private QAFWebElement formHeader;
 
@@ -57,9 +56,7 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
     private QAFWebElement Zip;
 
 
-
-
-    public RentalOwnerDetailsPage(){
+    RentalOwnerDetailsPage(){
         super();
     }
 
@@ -72,8 +69,38 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
         return new RentalOwnersPage();
     }
 
-    public void addNewOwnerEntry(String newOwnerFirstName, String newOwnerSecondName, String company, String year, String month, String day, String email,String phone_Number, String country, String state, String city, String street, String zip){
-
+    /**
+     * Fills form with new entry data
+     * @param newOwnerFirstName new owner's first name
+     * @param newOwnerSecondName new owner's second name
+     * @param company company
+     * @param year year
+     * @param month month
+     * @param day day
+     * @param email email
+     * @param phone_number phone number
+     * @param country country
+     * @param state state
+     * @param city city
+     * @param street street
+     * @param zip zip
+     */
+    public void addNewOwnerEntry(
+            String newOwnerFirstName,
+            String newOwnerSecondName,
+            String company,
+            String year,
+            String month,
+            String day,
+            String email,
+            String phone_number,
+            String country,
+            String state,
+            String city,
+            String street,
+            String zip
+        )
+    {
         firstName.sendKeys(newOwnerFirstName);
         lastName.sendKeys(newOwnerSecondName);
         companyName.sendKeys(company);
@@ -83,7 +110,7 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
         this.driver.findElement("//*[text()=\"" + year + "\"]").click();
         emailBtn.click();
         emailField.sendKeys(email);
-        phoneNumber.sendKeys(phone_Number);
+        phoneNumber.sendKeys(phone_number);
         DeviceUtils.swipe("50%,85%", "50%,25%");
         this.driver.findElement("//*[text()=\""+country+"\"]").click();
         Street.sendKeys(street);
@@ -98,6 +125,5 @@ public class RentalOwnerDetailsPage extends AbstractBasePage {
 
     @Override
     protected void openPage(PageLocator pageLocator, Object... objects) {
-
     }
 }
