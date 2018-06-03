@@ -3,8 +3,6 @@ package com.quantum.pages;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
-import com.quantum.utils.DeviceUtils;
-
 import static com.quantum.listerners.QuantumReportiumListener.logStepStart;
 
 public class LoginPage extends AbstractBasePage{
@@ -18,15 +16,24 @@ public class LoginPage extends AbstractBasePage{
     @FindBy(locator = "login.title")
     private QAFWebElement title;
 
+    /**
+     * Inherits driver.
+     */
     public LoginPage(){
         super();
-
+        validateLoginPage();
     }
 
-    public void validateLoginPage(){
+    private void validateLoginPage(){
         title.waitForPresent(5000);
     }
 
+    /**
+     * Logs into account.
+     * @param username Username
+     * @param password Password
+     * @return Home page instantiation and validation.
+     */
     public HomePage login(String username, String password){
         logStepStart("User login: " + username);
         usernameField.sendKeys(username);
