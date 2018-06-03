@@ -3,13 +3,13 @@ package com.quantum.pages;
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
+import com.quantum.utils.ConsoleUtils;
 import com.quantum.utils.DeviceUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class RentalOwnersPage extends AbstractBasePage {
 
@@ -29,6 +29,12 @@ public class RentalOwnersPage extends AbstractBasePage {
     private void validatePage(){
        title.waitForPresent(5000);
     }
+
+    /**
+     * Verifies if the new entry already exists on the owners list on the page, if it does exist, it deletes the entry.
+     * @param ownerFirstName owner's first name
+     * @param ownerLastName owner's second name
+     */
     public void clearOwnerEntry(String ownerFirstName, String ownerLastName){
         DeviceUtils.swipe("50%,85%", "50%,25%");
 
@@ -57,29 +63,34 @@ public class RentalOwnersPage extends AbstractBasePage {
     }
 
     public boolean getValidation(String ownerFirstName, String ownerLastName){
-        return (validateOwnerEntryExists(ownerFirstName, ownerLastName)!=null);
+        return (validateOwnerEntryExists(ownerFirstName, ownerLastName)!= null);
     }
 
+    /**
+     * Iterates through the table rows, and checks if the first and last names in each row, match the new entry name.
+     * @param ownerFirstName owner first name
+     * @param ownerLastName owner last name
+     * @return The web element of the matching name, in order to click and delete.
+     */
     private QAFWebElement validateOwnerEntryExists(String ownerFirstName, String ownerLastName){
         try {
             List<WebElement> rowList = this.driver.findElementsByTagName("tr");
             for (int i = 1; i < rowList.size()-1; i++) {
                 List<WebElement> columnList = rowList.get(i).findElements(By.tagName("td"));
                 if (columnList.get(1).getText().equalsIgnoreCase(ownerFirstName) && columnList.get(2).getText().equalsIgnoreCase(ownerLastName)) {
-                    System.out.println(ownerFirstName + " " + ownerLastName + " was found in the list");
+                    ConsoleUtils.logInfoBlocks(ownerFirstName + " " + ownerLastName + " was found in the list");
                     WebElement e = columnList.get(1).findElement(By.tagName("a"));
                     firstNameElement = (QAFWebElement) e;
                     break;
                 }
             }
         }catch (Exception e){
-            System.out.println("There are no owner listings");
+            ConsoleUtils.logInfoBlocks("There are no owner listings");
         }
             return firstNameElement;
     }
 
     @Override
     protected void openPage(PageLocator pageLocator, Object... objects) {
-
     }
 }
