@@ -2,7 +2,6 @@ package com.quantum.pages;
 
 import com.qmetry.qaf.automation.ui.annotations.FindBy;
 import com.qmetry.qaf.automation.ui.api.PageLocator;
-import com.qmetry.qaf.automation.ui.webdriver.QAFExtendedWebDriver;
 import com.qmetry.qaf.automation.ui.webdriver.QAFWebElement;
 
 import java.util.HashMap;
@@ -29,7 +28,10 @@ public class HomePage extends AbstractBasePage {
     @FindBy(locator = "home.title")
     private QAFWebElement title;
 
-    public HomePage(){
+    /**
+     * Inherits driver and validates the home page loaded properly upon instantiation.
+     */
+    HomePage(){
         super();
         validateHomePage();
     }
@@ -40,20 +42,12 @@ public class HomePage extends AbstractBasePage {
     @Override
     protected void openPage(PageLocator locator, Object... args) {
         // TODO Auto-generated method stub
-
-    }
-    
-    public void navApplicationsLeases(){
-        appLeaseBtn.click();
     }
 
-    public void navProperties(){
-        propertiesBtn.click();
-    }
-    public  Units navUnits(){
-        unitsBtn.click();
-        return new Units();
-    }
+    /**
+     * Smart scroll to desired page link.
+     * @return RentalOwnersPage instantiation and validation.
+     */
     public RentalOwnersPage navigateRentalOwnersPage(){
         Map<String, Object> params = new HashMap<>();
         params.put("content", "Rental");
@@ -63,6 +57,4 @@ public class HomePage extends AbstractBasePage {
         rentalOwnersBtn.click();
         return new RentalOwnersPage();
     }
-
-
 }
